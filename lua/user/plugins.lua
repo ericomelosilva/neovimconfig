@@ -9,49 +9,55 @@ return {
   -- load it on demand when you hit <Leader>e
   cmd = { "NvimTreeToggle", "NvimTreeFocus" },
   config = function()
-    require("nvim-tree").setup {
-      disable_netrw       = false,  -- don’t fall back to netrw
-      hijack_netrw        = true,   -- take over directory buffers
-      update_focused_file = {
-        enable = true,              -- keep cursor file in view
-      },
-      view = {
-        side      = "left",         -- left-hand side
-        width     = 30,             -- tree width in chars
-        hide_root_folder = false,
-        mappings = {
-          list = {
-            { key = {"<CR>", "o"}, action = "edit" },
-            { key = "e",           action = "edit" },
-            { key = "v",           action = "vsplit" },
-            { key = "h",           action = "split" },
-            { key = "C",           action = "close_node" },
-            { key = "R",           action = "refresh" },
-          },
-        },
-      },
-      renderer = {
-        icons = {
-          show = {
-            file = true,
-            folder = true,
-            git = true,
-          },
-        },
-      },
-      filters = {
-        dotfiles = false,
-        custom = { "^.git$" },
-      },
-      actions = {
-        open_file = {
-          quit_on_open = false,      -- keep tree open
-          resize_window = true,
-        },
-      },
-    }
-  end,
+   require("nvim-tree").setup({
+  -- === Basic view options ===
+  view = {
+    side            = "left",
+    width           = 30,
+    number          = false,
+    relativenumber  = false,
+    cursorline      = true,
+    signcolumn      = "no",
   },
+
+  -- === Renderer tweaks ===
+  renderer = {
+    -- Hide the root folder completely
+    root_folder_label = false,
+    icons = {
+      show = { file = true, folder = true, git = true },
+    },
+  },
+
+  -- === Filters & actions ===
+  filters = {
+    dotfiles = false,
+    custom   = { "^.git$" },
+  },
+  actions = {
+    open_file = {
+      quit_on_open   = false,
+      resize_window  = true,
+    },
+  },
+
+  -- === Keybindings ===
+  -- This replaces the old `view.mappings` block:
+  on_attach = function(bufnr)
+    local api = require("nvim-tree.api")
+    -- load all the default keymaps
+    api.config.mappings.default_on_attach(bufnr)
+
+    -- add or override mappings here, for example:
+    local opts = { buffer = bufnr, noremap = true, silent = true, nowait = true }
+    vim.keymap.set("n", "<CR>", api.node.open.edit,           opts)  -- Enter to open
+    vim.keymap.set("n", "v",    api.node.open.vertical,       opts)  -- v to vsplit
+    vim.keymap.set("n", "h",    api.node.open.horizontal,     opts)  -- h to split
+    vim.keymap.set("n", "C",    api.node.navigate.parent_close, opts)  -- C to collapseend
+    end,
+    })
+    end,
+    },
 
 
   -- Fuzzy finders
