@@ -1,0 +1,13 @@
+# swap / backup files
+*.swp
+*.swo
+*.swn
+*~
+# vim undo / session files
+*.un~ 
+Session.vim
+# Mac metadata
+.DS_Store
+# Lazy.nvim’s cache (optional—plugins live elsewhere)
+lazy-lock.json
+
