@@ -56,6 +56,23 @@ return {
     vim.keymap.set("n", "C",    api.node.navigate.parent_close, opts)  -- C to collapseend
     end,
     })
+
+   require("nvim-tree").setup({
+
+  view = { width = 30, side = "left" },
+  respect_buf_cwd = true,
+  hijack_netrw     = true,
+  })
+
+   vim.api.nvim_create_autocmd("VimEnter", {
+  callback = function()
+    if vim.fn.argc() == 0 then
+      vim.cmd("NvimTreeOpen")   -- open the tree
+      vim.cmd("wincmd l")       -- move focus right
+      require("alpha").start(true)  -- then show dashboard
+    end
+  end,
+  })
     end,
     },
 
@@ -119,6 +136,42 @@ return {
     end 
   },
   { "ellisonleao/gruvbox.nvim", lazy = true },
+
+  -- UI plugins
+
+  { "goolord/alpha-nvim",
+  lazy = false,  -- load immediately
+  dependencies = { "nvim-tree/nvim-web-devicons" },
+  config = function()
+    local alpha = require("alpha")
+    local dash  = require("alpha.themes.dashboard")
+    local fn    = vim.fn
+
+    -- 1) Read your pre‑generated ASCII art from aker.txt
+    local art = fn.readfile(fn.expand("~/.config/nvim/ascii/aker.txt"))
+    dash.section.header.val = art
+
+    -- 2) Dashboard buttons
+    dash.section.buttons.val = {
+      dash.button("e", "  New file",    ":ene | startinsert<CR>"),
+      dash.button("f", "  Find file",   ":Telescope find_files<CR>"),
+      dash.button("r", "  Recent files",":Telescope oldfiles<CR>"),
+      dash.button("q", "  Quit NVIM",   ":qa<CR>"),
+    }
+
+    -- 3) Layout: padding → ASCII art → padding → buttons
+    dash.config.layout = {
+      { type = "padding", val = 1 },
+      dash.section.header,
+      { type = "padding", val = 2 },
+      dash.section.buttons,
+    }
+
+    -- 4) Apply the dashboard configuration
+    alpha.setup(dash.config)
+  end,
+  },
+
 
   --lualine
   { "nvim-lualine/lualine.nvim",
