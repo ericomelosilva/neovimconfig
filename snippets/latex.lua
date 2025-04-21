@@ -16,3 +16,85 @@ ls.add_snippets("tex", {
   }),
 })
 
+ls.add_snippets("tex", {
+  -- full exam template
+  s("probset", fmt([[
+\documentclass[{}]{{exam}}
+\usepackage{{amsfonts,amssymb,amsmath,amsthm}}
+\usepackage{{graphicx}}
+\usepackage{{systeme}}
+\usepackage{{pgf,tikz,pgfplots}}
+\usepackage{{xcolor}}
+\pgfplotsset{{compat=1.15}}
+\usepgfplotslibrary{{fillbetween}}
+\usepackage{{mathrsfs}}
+\usetikzlibrary{{arrows,calc}}
+
+\pagestyle{{headandfoot}}
+
+\firstpageheader{{CW/HW}}{{}}{{}}
+\runningheader{{}}{{}}{{Page \thepage\ of \numpages}}
+\runningheadrule
+\firstpagefooter{{}}{{}}{{}}
+\runningfooter{{}}{{}}{{}}
+
+\begin{{document}}
+
+\begin{{questions}}
+  {}
+\end{{questions}}
+
+\end{{document}}
+]], {
+    -- [1] = class options
+    i(1, "11pt,addpoints"),
+    -- [2] = place to put your question snippets
+    i(2, "% your \\question blocks here")
+  })
+  ,
+
+  -- single question block with an image
+  s("q", fmt([[
+\question {}
+\begin{{flushleft}}
+  \includegraphics[scale={}]{}
+\end{{flushleft}}
+]], {
+    -- [1] = question prompt (you can leave blank or put text)
+    i(1, "\\textcolor{white}{.}"),
+    -- [2] = scale factor
+    i(2, "0.7"),
+    -- [3] = filename (without extension)
+    i(3, "prob1")
+  })
+})
+
+ls.add_snippets("tex", {
+  -- poetry template
+  s("poem", fmt([[
+\documentclass[{}]{{article}}
+\usepackage[T1]{{fontenc}}
+\usepackage[utf8]{{inputenc}}
+% Garamond via garamondx; if you prefer xelatex:
+% \usepackage{{fontspec}}
+% \setmainfont{{EB Garamond}}
+\usepackage{{garamondx}}
+\usepackage{{setspace}}
+\setstretch{{{}}}
+
+\pagestyle{{empty}}
+
+\begin{{document}}
+
+{}
+
+\end{{document}}
+]], {
+    -- 1: class options
+    i(1, "11pt"),
+    -- 2: line‐spacing factor
+    i(2, "1.15"),
+    -- 3: your poem goes here
+    i(3, "% start typing your poem…")
+  })
+})
