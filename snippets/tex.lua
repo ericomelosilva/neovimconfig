@@ -1,6 +1,7 @@
 -- ~/.config/nvim/snippets/latex.lua
 local ls = require("luasnip")
 local s, i, t = ls.snippet, ls.insert_node, ls.text_node
+local fmt = require("luasnip.extras.fmt").fmt
 
 ls.add_snippets("tex", {
   s("doc", {
@@ -50,7 +51,7 @@ ls.add_snippets("tex", {
     i(1, "11pt,addpoints"),
     -- [2] = place to put your question snippets
     i(2, "% your \\question blocks here")
-  })
+  }))
   ,
 
   -- single question block with an image
@@ -65,9 +66,11 @@ ls.add_snippets("tex", {
     -- [2] = scale factor
     i(2, "0.7"),
     -- [3] = filename (without extension)
-    i(3, "prob1")
+    i(3, "prob  ")
   })
-})
+  ),
+  })
+
 
 ls.add_snippets("tex", {
   -- poetry template
@@ -90,11 +93,9 @@ ls.add_snippets("tex", {
 
 \end{{document}}
 ]], {
-    -- 1: class options
     i(1, "11pt"),
-    -- 2: line‐spacing factor
     i(2, "1.15"),
-    -- 3: your poem goes here
     i(3, "% start typing your poem…")
   })
+),
 })
