@@ -18,7 +18,6 @@ ls.add_snippets("tex", {
 })
 
 ls.add_snippets("tex", {
-  -- full exam template
   s("probset", fmt([[
 \documentclass[{}]{{exam}}
 \usepackage{{amsfonts,amssymb,amsmath,amsthm}}
@@ -98,4 +97,49 @@ ls.add_snippets("tex", {
     i(3, "% start typing your poem…")
   })
 ),
+})
+
+--biochem note template
+-- Trigger: bcnote
+ls.add_snippets("tex", {
+  s("bcnote", fmt([[
+\documentclass[11pt,a4paper]{{article}}
+\usepackage[utf8]{{inputenc}}
+\usepackage[T1]{{fontenc}}
+\usepackage{{lmodern}}
+\usepackage{{amsmath,amssymb}}
+\usepackage{{geometry}}
+\geometry{{margin=1in}}
+
+\title{{Biochemistry Notes: {}}}
+\author{{{}}}
+\date{{\today}}
+
+\begin{{document}}
+\maketitle
+\tableofcontents
+\vspace{{1em}}
+
+\section{{Introduction: {}}}
+{}
+
+\section{{Key Concepts}}
+{}
+
+\section{{Mechanisms}}
+{}
+
+\section{{Examples}}
+{}
+
+\end{{document}}
+]], {
+    i(1, "Voet Chapter X"),
+    i(2, "Your Name"),
+    i(3, "Overview of chapter"),
+    i(4, "Introductory notes..."),
+    i(5, "Key concepts..."),
+    i(6, "Mechanisms details..."),
+    i(7, "Example problems...")
+  }))
 })
