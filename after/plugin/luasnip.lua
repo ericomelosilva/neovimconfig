@@ -1,5 +1,4 @@
 -- after/plugin/luasnip.lua
-print("🐛  setting up luasnip loaders…")
 
 require("luasnip.loaders.from_vscode").lazy_load()
 
