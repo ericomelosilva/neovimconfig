@@ -172,6 +172,9 @@ return {
   end,
   },
 
+  --markdown visual conceal
+  { 'preservim/vim-markdown', ft = 'markdown' },
+
 
   --lualine
   { "nvim-lualine/lualine.nvim",
