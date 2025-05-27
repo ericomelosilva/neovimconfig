@@ -25,12 +25,14 @@ vim.loader.enable()
 -- point Lazy at your plugin list
 require("lazy").setup("user.plugins", {
   defaults    = { lazy = true },
-  install     = { colorscheme = { "tokyonight", "gruvbox" } },
-  checker     = { enabled = true, notify = false },  -- auto‑update checks
+  install     = { colorscheme = { "tokyonight", "gruvbox", "catppuccin-macchiato" } },
+  checker     = { enabled = true, notify = false }, 
 
 })
 
-vim.opt.conceallevel = 1
+
+
+vim.opt.conceallevel = 2
 vim.opt.concealcursor = ""   -- hide concealed text
 vim.cmd([[syntax enable]])
 vim.cmd([[filetype plugin indent on]])

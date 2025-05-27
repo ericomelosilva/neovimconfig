@@ -19,7 +19,7 @@ return {
     cursorline      = true,
     signcolumn      = "no",
   },
-
+ 
   -- === Renderer tweaks ===
   renderer = {
     -- Hide the root folder completely
@@ -84,7 +84,9 @@ return {
     dependencies = { "plenary.nvim" },
     config = function() require("user.telescope") end,
   },
-  { "junegunn/fzf.vim",       build = function() vim.fn["fzf#install"]() end },
+  { "junegunn/fzf.vim",       
+     build = function() vim.fn["fzf#install"]() end,
+     },
 
   -- Treesitter for smart syntax
   { "nvim-treesitter/nvim-treesitter",
@@ -125,10 +127,11 @@ return {
   { "jalvesaq/Nvim-R",           ft = "r"       },
   { "neovimhaskell/haskell-vim", ft = "haskell" },
   { "Julian/lean.nvim",          ft = "lean"    },
+  { "kaarmu/typst.vim",          ft = "typst"   },
 
   --Colorschemes
   { "catppuccin/nvim",          name = "catppuccin",    lazy = false, priority =    100, config = function()
-    vim.cmd("colorscheme catppuccin-mocha")
+    vim.cmd("colorscheme catppuccin-macchiato")
     end 
   },
   { "folke/tokyonight.nvim",    lazy = true,  config = function()
@@ -239,6 +242,36 @@ return {
   config = function()
     require("which-key").setup{ timeout = true }
   end,
+  },
+
+  { "nvim-neorg/neorg",
+    lazy = false,          -- don’t let LazyVim defer it
+    version = "*",         -- pin to the latest stable tag (v9.x as of 2025-05)
+    build = ":Neorg sync-parsers",  -- auto-install the TS grammar
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      -- treesitter is already in the default LazyVim stack,
+      -- but we ensure the 'norg' grammar is installed:
+      {
+        "nvim-treesitter/nvim-treesitter",
+        opts = { ensure_installed = { "norg" } },
+      },
+    },
+    opts = {
+      load = {
+        ["core.defaults"]  = {},   -- basic mappings
+        ["core.concealer"] = {},   -- pretty icons
+        ["core.dirman"] = {
+          config = {
+            workspaces = {
+              notes = "~/notes",   -- change to wherever you keep .norg files
+              work  = "~/work/notes",
+            },
+            default_workspace = "notes",
+          },
+        },
+      },
+    },
   },
 
 }
